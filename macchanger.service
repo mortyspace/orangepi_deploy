@@ -1,0 +1,13 @@
+[Unit]
+Description=macchanger on {{ iface }}
+Wants=network-pre.target
+Before=network-pre.target
+BindsTo=sys-subsystem-net-devices-{{ iface }}.device
+After=sys-subsystem-net-devices-{{ iface }}.device
+
+[Service]
+ExecStart=/usr/bin/macchanger -m {{ mac }} {{ iface }}
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target
